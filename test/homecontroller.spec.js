@@ -15,10 +15,23 @@
 
 
 describe('testing application', function() {
-	beforeEach(angular.mock.module('app'))
+	beforeEach(module('app'))
 
 	var scope;
 	var controller;
+
+
+	var user = {
+		fullName: "israel",
+		emailDotCom: "so.israel@hotmail.com",
+		emailDotComDotBr: "so.israel@hotmail.com.br",
+		cellphoneTypeOne: "55-11-12345-6789",
+		cellphoneTypeTwo: "55-11-1234-5678",
+		cpf: "322.222.222-09",
+		pass: "111",
+		confirmpass: "111",
+		agree: true
+	};
 
 	beforeEach(angular.mock.inject(function($rootScope, $controller, _$httpBackend_) {
 		
@@ -27,20 +40,24 @@ describe('testing application', function() {
 
 	}));
 
-	it('should bring the form fields validates', function() {
-		var user = {
-			fullName: "israel",
-			email: "so.israel@hotmail.com",
-			cellphone: "11-9999-8889",
-			cpf: "322.222.222-09",
-			pass: "111",
-			confirmpass: "111",
-			agree: true
-		};
+	it('Validate the cpf validation', function() {
+		expect(controller.validate.cpf.test(user.cpf)).toBeTruthy();
+	});
+	
+	it('Validate the cellphone validation like 55-11-1234-5678', function() {
+		expect(controller.validate.cellPhone.test(user.cellphoneTypeOne)).toBeTruthy();
+	});
+	
+	it('Validate the cellphone validation like 55-11-12345-6789', function() {
+		expect(controller.validate.cellPhone.test(user.cellphoneTypeTwo)).toBeTruthy();
+	});
+	
+	it('Validate the email validation without .br in the end', function() {
+		expect(controller.validate.email.test(user.emailDotCom)).toBeTruthy();
+	});
 
-		console.log('TESTE PARTICULAR: ', controller.name);
-		
-		expect(controller.name).toEqual('teste');
+	it('Validate the email validation with .br in the end', function() {
+		expect(controller.validate.email.test(user.emailDotComDotBr)).toBeTruthy();
 	});
 
 
