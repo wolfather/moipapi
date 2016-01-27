@@ -1,0 +1,6 @@
+{
+	"directory": "dev/components/",
+	"analytics": false,
+	"timeout": 120000,
+	"json": "bower.json"
+}
