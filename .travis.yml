@@ -1,30 +1,27 @@
 language: node_js
 
-node_js:
-	- "5.1"
-	- "4.1"
-	- "0.12"
-
+node_js: 
+ - "5.1"
+ - "4.1"
+ - "0.12"
 
 git:
-	depth: 3
-deploy:
-	skip_cleanup: true
+ depth: 3
+#deploy:
+# skip_cleanup: true
 
 branches:
-	only:
-		- master
+ only:- master
 
 
 
 before_script:
-	- npm install
-	- bower install
+ - npm install
+ - bower install
 
 script: karma start
 
 
 after script:
-notifications:
-	recipients:
-		- so.israelweb@gmail.com
+ notifications:
+  recipients:- so.israelweb@gmail.com
