@@ -6,7 +6,7 @@
   "main": "app.js",
   "scripts": {
     "start": "npm i",
-    "postinstall": "bower install && compass compile && grunt build",
+    "postinstall": "bower install && grunt build",
     "init": "",
     "test": "karma start"
   },
