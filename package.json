@@ -5,7 +5,7 @@
   "author": "Israel <so.israelweb@gmail.com>",
   "main": "app.js",
   "scripts": {
-    "start": "supervisor app",
+    "start": "npm i && http-server",
     "postinstall": "bower install && compass compile && grunt build",
     "init": "",
     "test": "echo \"Error: no test specified\" && exit 1"
