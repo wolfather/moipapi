@@ -23,7 +23,7 @@ module.exports = function() {
 		},
 		target: {
 			files: {
-				'./build/js/app.main.js': sourceFiles
+				'./dev/js/app.js': sourceFiles
 			}
 		}
 	}

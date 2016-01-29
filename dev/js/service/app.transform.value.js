@@ -9,6 +9,7 @@ function transformValuesFn() {
 					return _name[0];
 				},
 				last: function() {
+					//console.log('LAST NAME: ', _name.splice(1).join(' '));
 					return _name.splice(1).join(' ');
 				}
 			};

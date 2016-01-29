@@ -20,9 +20,8 @@ describe('testing application', function() {
 	var scope;
 	var controller;
 
-
 	var user = {
-		fullName: "israel",
+		fullName: "israel soares",
 		emailDotCom: "so.israel@hotmail.com",
 		emailDotComDotBr: "so.israel@hotmail.com.br",
 		cellphoneTypeOne: "55-11-12345-6789",

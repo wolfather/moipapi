@@ -1,6 +1,6 @@
 function createuserformFn(transformvalue, postuserservice) {
 	this.submit = function(user) {
-		event.preventDefault();
+		//event.preventDefault();
 
 		var _user = {},
 			value = angular.copy(user);
@@ -13,6 +13,8 @@ function createuserformFn(transformvalue, postuserservice) {
 		//console.log(_user);
 
 		postuserservice.create(_user);
+
+		return false;
 	};
 }
 

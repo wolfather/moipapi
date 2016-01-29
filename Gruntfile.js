@@ -4,9 +4,9 @@ module.exports = function( grunt ) {
 		compass 		: require('./grunttasksconfigs/compass.config'),
 		jade 			: require('./grunttasksconfigs/jade.config'),
 		ngannotate 		: require('./grunttasksconfigs/ngannotate.config'),
-		karma 			: require('./grunttasksconfigs/karma.config')
-		/*cssmin 			: require('./grunttasksconfigs/cssmin.config'),
+		karma 			: require('./grunttasksconfigs/karma.config'),
 		uglify 			: require('./grunttasksconfigs/uglify.config'),
+		/*cssmin 			: require('./grunttasksconfigs/cssmin.config'),
 		concat 			: require('./grunttasksconfigs/concat.config'),
 		watch 			: require('./grunttasksconfigs/watch.config')*/
 	}
@@ -18,10 +18,10 @@ module.exports = function( grunt ) {
 		compass : cfg.compass(),
 		ngAnnotate: cfg.ngannotate(),
 		karma: cfg.karma(),
+		uglify: cfg.uglify()
 		//connect: cfg.connect(),
 		/*cssmin: cfg.cssmin(),
 		uncss: cfg.uncss(),
-		uglify: cfg.uglify(),
 		concat: cfg.concat(),
 		watch: cfg.watch()*/
 	})
@@ -44,7 +44,7 @@ module.exports = function( grunt ) {
 	//grunt.registerTask('cssminify', ['cssmin'])
 	//grunt.registerTask('css', ['compass', 'cssmin'])
 	grunt.registerTask('jsmin', ['uglify'])
-	grunt.registerTask('js', ['ngAnnotate', 'concat', 'uglify'])
+	grunt.registerTask('js', ['ngAnnotate', 'uglify'])
 	//grunt.registerTask('fronttasks', ['jade', 'compass', 'cssmin', 'ngAnnotate', 'concat', 'uglify'])
-	grunt.registerTask('default', ['connect'])
+	grunt.registerTask('default', [])
 }

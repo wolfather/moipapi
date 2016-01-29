@@ -1,12 +1,26 @@
 .login-group-header
 	+span-columns(12)
+	margin: 0 0 30px
 	color: #fff
 	text-align: center
 
 
 .login-group-header-h1
-	font-size: 1.2rem	
+	position: relative
+	font-size: 1.2rem
+
+	&:after
+		content: ','
+		display: inline-block
+
 
 .login-group-header-h2
 	font-size: 1.2rem
 	font-weight: 100
+
+
+.social-login-disclaimer
+	display: block
+	
+	+media($mobile)
+		display: none

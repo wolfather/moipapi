@@ -296,7 +296,7 @@ function validateServiceFn() {
 	
 	this.validate = {
 		cpf : /^[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}$/,
-		cellPhone : /^[0-9]{2}\-[0-9]{2}\-[0-9]{4,5}\-[0-9]{4}$/,
+		cellPhone : /^[0-9]{2}\-?[0-9]{2}\-[0-9]{4,5}\-[0-9]{4}$/,
 		email: /^([a-zA-Z]|[0-9])+(\.)?([a-zA-Z]|[0-9])+\@([a-zA-Z]|[0-9])+\.([a-zA-Z]{2,4})+\.?([a-zA-Z]{2,3})?$/
 	};
 }
@@ -327,46 +327,36 @@ function postUserFn($http, POST_URL_USER) {
 					number: data.phone.number()
 				}
 			},
-			type: 'MERCHANT'/*,
-			'pass': '111',
-			'confirmpass': '111',
-			'agree': true*/
-		};
+			type: 'MERCHANT'
+		}
 	};
-
-	$http.defaults.headers.post = {
-		'Access-Control-Allow-Origin': '*',
-		'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS, JSON',
-		'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With',
-		'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-	};
-	$http.defaults.useXDomain = true;	
-	delete $http.defaults.headers.common['X-Requested-With'];
-
+	
 	this.create = function(userData) {
-		console.log(angular.toJson(_userInfo(userData), 1));
-		return $http({
-			method: 'POST',
-			url: POST_URL_USER.url,
-			headers: {'Content-Type': 'application/json'},
-			data: angular.toJson(_userInfo(userData), 1),
-			//data: JSON.stringify(_userInfo(userData)),
-			cache: false
-		})
-		.then(function(response) {
-			console.log('parse reponse: ', angular.toJson(response));
-			console.log('reponse: ', response);
-			return response;
+		var request = new XMLHttpRequest(),
+			response;
+
+		request.open('POST', POST_URL_USER.url),
+
+		request.setRequestHeader('Content-Type', 'application/json'),
 		
-		}, function(error) {
-			console.log('erro', error);
-			return error;
-		
-		})/*.catch(function(e) {
-			console.log('erro', e);
-		})*/
+		request.overrideMimeType("text/plain; charset=utf-8"),
+
+		request.send(JSON.stringify(_userInfo(userData))),
+
+		request.onreadystatechange = function () {
+			if (this.readyState === 4 && !!this.responseText) {
+				//console.log((/\}\,\n\s\s\s\s\}\,/g).test(this.responseText));
+				//console.log('RESPONSE: ', JSON.parse(response));
+				
+				response = this.responseText.replace(/\}\,\n\s\s\s\s\}\,/g, '}},');
+				
+				return JSON.parse(response);
+			}
+		};
 
 	};
+
+
 }
 
 angular.module('app').service('postuserservice', 
@@ -387,6 +377,7 @@ function transformValuesFn() {
 					return _name[0];
 				},
 				last: function() {
+					//console.log('LAST NAME: ', _name.splice(1).join(' '));
 					return _name.splice(1).join(' ');
 				}
 			};
@@ -424,7 +415,7 @@ angular.module('app').service('transformvalue',
 
 function createuserformFn(transformvalue, postuserservice) {
 	this.submit = function(user) {
-		event.preventDefault();
+		//event.preventDefault();
 
 		var _user = {},
 			value = angular.copy(user);
@@ -437,6 +428,8 @@ function createuserformFn(transformvalue, postuserservice) {
 		//console.log(_user);
 
 		postuserservice.create(_user);
+
+		return false;
 	};
 }
 

@@ -1,18 +1,16 @@
 language: node_js
 
-node_js: 
- - "5.1"
- - "4.1"
- - "0.12"
+node_js:
+ - 0.12
 
 git:
  depth: 3
+
 #deploy:
 # skip_cleanup: true
 
 branches:
  only:- master
-
 
 
 before_script:
@@ -22,6 +20,7 @@ before_script:
 script: karma start
 
 
-after script:
- notifications:
+#after script:
+notifications:
+ email:
   recipients:- so.israelweb@gmail.com

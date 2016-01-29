@@ -7,7 +7,8 @@
 		.error-message(data-ng-show='createuser.cpf.$invalid && createuser.cpf.$dirty') CPF incorreto
 
 		fieldset.form-fieldset
-			legend
+			legend.form-legend-title
+				span.form-legend-title-span ou
 
 			input.form-input(type='text'
 				placeholder='Nome completo'
@@ -28,7 +29,7 @@
 				name='email')
 
 			.row
-				input.form-input.medium-up-5(type='text'
+				input.form-input.input-cpf(type='text'
 					placeholder='CPF'
 					maxlength='14'
 					data-ng-model='user.cpf'
@@ -38,9 +39,9 @@
 					name='cpf')
 				
 				
-				input.form-input.medium-up-5(type='text'
+				input.form-input.input-cellphone(type='text'
 					placeholder='Celular'
-					maxlength='15'
+					maxlength='16'
 					data-ng-model='user.cellphone'
 					data-ng-class=''
 					data-ng-required='true'
@@ -49,7 +50,7 @@
 			
 
 			.row.input-pass-group
-				input.form-input.medium-up-6(type='password'
+				input.form-input.input-password(type='password'
 					placeholder='Senha'
 					maxlength='10'
 					data-ng-model='user.pass'
@@ -58,7 +59,7 @@
 					name='pass')
 				
 				
-				input.form-input.medium-up-6(type='password'
+				input.form-input.input-password(type='password'
 					placeholder='Confirme sua senha'
 					maxlength='10'
 					data-ng-model='user.confirmpass'
@@ -67,9 +68,9 @@
 					name='confirmpass')
 
 
-			.row
+			.row.input-row-checkbox-agreement
 				label.form-input-label-agreement Li e concordo com 
-					em.form-input-emphasys termos de uso
+					a.form-input-emphasys(href='#') os termos de uso
 					input.form-input.form-input-checkbox(type='checkbox'
 						data-ng-model='user.agree'
 						data-ng-class='form-input'
@@ -79,6 +80,7 @@
 
 			input.form-submit.medium-up-9(type='submit'
 				data-ng-class=''
-				value='CADASTRAR'
+				value='Cadastrar'
 				data-ng-submit='home.submitcreateuser(user);'
-				data-ng-disabled='createuser.$invalid')
+				data-ng-disabled='createuser.$invalid'
+				data-ng-if='user.pass === user.confirmpass')
