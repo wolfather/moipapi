@@ -1,21 +1,20 @@
 {
-  "name": "node-app",
+  "name": "moipapi",
   "version": "1.0.0",
   "description": "Simple app",
   "author": "Israel <so.israelweb@gmail.com>",
   "main": "app.js",
   "scripts": {
     "start": "npm i",
-    "postinstall": "bower install && grunt build",
     "init": "",
     "test": "karma start"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/wolfather/app"
+    "url": "https://github.com/wolfather/moipapi"
   },
   "bugs": {
-    "url": "https://github.com/wolfather/app/issues"
+    "url": "https://github.com/wolfather/moipapi/issues"
   },
   "keywords": [
     "angularjs"
