@@ -10,11 +10,7 @@ function createuserformFn(transformvalue, postuserservice) {
 		_user.cpf = transformvalue.cpf(value.cpf);
 		_user.phone = transformvalue.phone(value.cellphone);
 
-		//console.log(_user);
-
-		postuserservice.create(_user);
-
-		return false;
+		return postuserservice.create(_user);
 	};
 }
 

@@ -2,10 +2,6 @@
 	form(name='createuser'
 		data-ng-submit='home.submitcreateuser(user);')
 		
-		.error-message(data-ng-show='createuser.fullName.$invalid && createuser.fullName.$dirty') Nome incorreto
-
-		.error-message(data-ng-show='createuser.cpf.$invalid && createuser.cpf.$dirty') CPF incorreto
-
 		fieldset.form-fieldset
 			legend.form-legend-title
 				span.form-legend-title-span ou
@@ -84,3 +80,38 @@
 				data-ng-submit='home.submitcreateuser(user);'
 				data-ng-disabled='createuser.$invalid'
 				data-ng-if='user.pass === user.confirmpass')
+
+
+
+	.success-response-box(data-ng-if='home.successdata'
+		data-channelid='{{home.successdata.channelId}}')
+		h3.success-response-box-title Usuário cadastrado com sucesso
+		
+		dl.success-response-box-definition
+			dt.success-response-box-definition-title Nome:
+			dd.success-response-box-definition-description {{home.successdata.person.name}} {{home.successdata.person.lastName}}
+		
+		dl.success-response-box-definition
+			dt.success-response-box-definition-title CPF: 
+			dd.success-response-box-definition-description {{home.successdata.person.taxDocument.number}}
+		
+		dl.success-response-box-definition
+			dt.success-response-box-definition-title E-mail:
+			dd.success-response-box-definition-description {{home.successdata.email.address}} 
+				strong(data-ng-show='home.successdata.email.confirmed') (endereço confirmado)
+		
+		dl.success-response-box-definition
+			dt.success-response-box-definition-title Seu nome de usuário:
+			dd.success-response-box-definition-description.untouchable {{home.successdata.login}}
+
+		p.success-response-box-text
+			- var linkText = 'clique aqui para ativar a sua conta.'
+			a.success-response-box-link(href='{{home.successdata._links.self.href}}'
+				target='_blank'
+				rel='external'
+				title= '#{linkText}'
+				data-createdAt='{{home.successdata.createdAt}}') #{linkText}
+
+	
+		
+

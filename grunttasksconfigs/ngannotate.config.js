@@ -12,6 +12,7 @@ module.exports = function() {
 		'./dev/js/value/app.http.posturluser.value.js',
 		'./dev/js/value/app.httpvalue.js',
 		'./dev/js/factory/app.factory.js',
+		'./dev/js/directive/app.directive.messagebox.js',
 		'./dev/js/controller/app.home.controller.js',
 		'./dev/js/route/app.route.js'
 	]

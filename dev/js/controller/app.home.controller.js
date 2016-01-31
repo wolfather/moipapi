@@ -9,10 +9,20 @@ function homeFn(validateservice, createuserform) {
 	//pattern form fields validation
 	this.validate = validateservice.validate;
 	
+	var self = this;
+	this.successdata = '';
+
 	//submit form user info
 	this.submitcreateuser = function(user) {
-		createuserform.submit(user);
+
+		createuserform.submit(user).then(function(response) {
+			
+			self.successdata = response.data;
+
+		});
+
 	};
+
 }
 
 angular.module('app').controller('homeController', 

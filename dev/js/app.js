@@ -304,7 +304,7 @@ function validateServiceFn() {
 angular.module('app').service('validateservice', 
 	[validateServiceFn]);
 
-function postUserFn($http, POST_URL_USER) {
+/*function postUserFn(POST_URL_USER) {
 	'use strict';
 	
 	var self = this,
@@ -328,35 +328,102 @@ function postUserFn($http, POST_URL_USER) {
 				}
 			},
 			type: 'MERCHANT'
-		}
+		};
 	};
+
 	
 	this.create = function(userData) {
 		var request = new XMLHttpRequest(),
 			response;
 
-		request.open('POST', POST_URL_USER.url),
-
-		request.setRequestHeader('Content-Type', 'application/json'),
-		
-		request.overrideMimeType("text/plain; charset=utf-8"),
-
-		request.send(JSON.stringify(_userInfo(userData))),
+		request.open('POST', POST_URL_USER.url);
+		request.setRequestHeader('Content-Type', 'application/json');
+		request.overrideMimeType('text/plain; charset=utf-8');
+		request.send(JSON.stringify(_userInfo(userData)));
 
 		request.onreadystatechange = function () {
-			if (this.readyState === 4 && !!this.responseText) {
-				//console.log((/\}\,\n\s\s\s\s\}\,/g).test(this.responseText));
-				//console.log('RESPONSE: ', JSON.parse(response));
-				
+			if (this.readyState === 4 && this.status === 201) {
 				response = this.responseText.replace(/\}\,\n\s\s\s\s\}\,/g, '}},');
 				
-				return JSON.parse(response);
+				//console.log(this);
+				//return JSON.parse(response);
+				
+				this.onloadend = function(e) {
+					console.log('on load end: ', e, JSON.parse(response));
+					//response = e.target.responseText.replace(/\}\,\n\s\s\s\s\}\,/g, '}},');
+					
+					return JSON.parse(response);
+				};
+
 			}
+
 		};
 
 	};
 
 
+}*/
+
+
+function postUserFn($http, POST_URL_USER) {
+	var self = this,
+		_userInfo = function(data) {
+		return {
+			email: {
+				address: data.email
+			},
+			person: {
+				name: data.name.first(),
+				lastName: data.name.last(),
+				taxDocument: {
+					type: 'CPF',
+					number: data.cpf
+				},
+				birthDate: '1981-01-30',
+				phone: {
+					countryCode: data.phone.countryCode(),
+					areaCode: data.phone.areaCode(),
+					number: data.phone.number()
+				}
+			},
+			type: 'MERCHANT'
+		};
+	};
+
+
+	$http.defaults.headers.post = {
+		'Access-Control-Allow-Origin': '*',
+		'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS, JSON',
+		'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With',
+		'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+	};
+	$http.defaults.useXDomain = true;
+	delete $http.defaults.headers.common['X-Requested-With'];
+
+	this.create = function(userData) {
+		console.log(angular.toJson(_userInfo(userData), 1));
+		return $http({
+			method: 'POST',
+			url: POST_URL_USER.url,
+			headers: {'Content-Type': 'application/json'},
+			data: angular.toJson(_userInfo(userData), 1),
+			//data: JSON.stringify(_userInfo(userData)),
+			cache: false,
+			transformResponse: [function (data) {
+				var response = data.replace(/\}\,\n\s\s\s\s\}\,/g, '}},');
+				return JSON.parse(response);
+			}]
+		})
+		.then(function(response) {
+			return response;
+
+		}, function(error) {
+			return error;
+
+		})/*.catch(function(e) {
+			console.log('erro', e);
+		})*/
+	};
 }
 
 angular.module('app').service('postuserservice', 
@@ -425,11 +492,7 @@ function createuserformFn(transformvalue, postuserservice) {
 		_user.cpf = transformvalue.cpf(value.cpf);
 		_user.phone = transformvalue.phone(value.cellphone);
 
-		//console.log(_user);
-
-		postuserservice.create(_user);
-
-		return false;
+		return postuserservice.create(_user);
 	};
 }
 
@@ -487,6 +550,24 @@ angular.module('app').factory('user',
 }]);
 */
 
+angular.module('app').directive('messagebox', ['$document', function($document) {
+	return {
+		restrict: 'A',
+		template: '<div class="success-response-box" data-so="emailconfirmed" data-channelid="{{channelid}}"><h3 class="success-response-box-title">Usuário cadastrado com sucesso</h3><dl class="success-response-box-definition"><dt class="success-response-box-definition-title">Nome:</dt><dd class="success-response-box-definition-description">{{name}} {{lastname}}</dd></dl><dl class="success-response-box-definition"><dt class="success-response-box-definition-title">CPF:</dt><dd class="success-response-box-definition-description">{{taxDocumentnumber}}</dd></dl><dl class="success-response-box-definition"><dt class="success-response-box-definition-title">E-mail:</dt><dd class="success-response-box-definition-description">{{emailaddress}}<strong data-ng-show="{{emailconfirmed}}">(endereço confirmado)</strong></dd></dl><dl class="success-response-box-definition"><dt class="success-response-box-definition-title">Seu nome de usuário:</dt><dd class="success-response-box-definition-description untouchable">{{login}}</dd></dl><p class="success-response-box-text"><a class="success-response-box-link" href="{{linkhref}}" target="_blank" rel="external" title="clique aqui para ativar a sua conta." data-createdAt="{{createdAt}}">clique aqui para ativar a sua conta.</a></p></div>',
+		scope: {
+			channelid: '=',
+			name: '=',
+			lastname: '=',
+			taxDocumentnumber: '=',
+			emailaddress: '=',
+			emailconfirmed: '=',
+			login: '=',
+			linkhref: '=',
+			createdAt: '=',
+		}
+	};
+}])
+
 /* jshint strict: true */
 /* jslint vars: true */
 /* jslint devel: true */
@@ -498,10 +579,20 @@ function homeFn(validateservice, createuserform) {
 	//pattern form fields validation
 	this.validate = validateservice.validate;
 	
+	var self = this;
+	this.successdata = '';
+
 	//submit form user info
 	this.submitcreateuser = function(user) {
-		createuserform.submit(user);
+
+		createuserform.submit(user).then(function(response) {
+			
+			self.successdata = response.data;
+
+		});
+
 	};
+
 }
 
 angular.module('app').controller('homeController', 
