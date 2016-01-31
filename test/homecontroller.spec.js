@@ -17,6 +17,8 @@
 describe('testing application', function() {
 	beforeEach(angular.mock.module('app'))
 
+	//angular.mock.module('app');
+	
 	var scope;
 	var controller;
 
