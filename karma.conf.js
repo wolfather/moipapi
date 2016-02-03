@@ -32,13 +32,14 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+    	'dev/**/*.js': ['coverage']
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
 
 
     // web server port
@@ -70,6 +71,12 @@ module.exports = function(config) {
 	},*/
 
 	plugins: [
+		'karma-chrome-launcher',
+		'karma-coverage',
+		'karma-firefox-launcher',
+		'karma-jasmine',
+		'karma-junit-reporter',
+		'karma-phantomjs-launcher',
 		'karma-*'
 	],
 
@@ -82,6 +89,27 @@ module.exports = function(config) {
 
     // Concurrency level
     // how many browser should be started simultaneous
-    concurrency: Infinity
+    concurrency: Infinity,
+
+
+	coverageReporter: {
+		instrumenterOptions: {
+			istanbul: {
+				noCompact: true
+			}
+		},
+		dir: './reports/coverage',
+		reporters: [
+			{ type: 'html', subdir: 'report-html' },
+			{ type: 'lcov', subdir: 'report-lcov' },
+			{ type: 'cobertura', subdir: '.', file: 'cobertura.txt' },
+			{ type: 'lcovonly', subdir: '.', file: 'report-lcovonly.txt' },
+			{ type: 'teamcity', subdir: '.', file: 'teamcity.txt' },
+			{ type: 'text', subdir: '.', file: 'text.txt' },
+			{ type: 'text-summary', subdir: '.', file: 'text-summary.txt' },
+		]
+	}
+
+
   })
 }
