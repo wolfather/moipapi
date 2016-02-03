@@ -37,7 +37,7 @@ function transformValuesFn() {
 
 	this.cpf = function (docNumber) {
 		
-		return 'string' === typeof docNumber ? docNumber.substr(0,3) + '.' + docNumber.substr(3, 3) + '.' + docNumber.substr(6, 3) + '-' + docNumber.substr(9) : 0;
+		return 'string' === typeof docNumber ? docNumber.substr(0,3) + '.' + docNumber.substr(4, 3) + '.' + docNumber.substr(8, 3) + '-' + docNumber.substr(12) : 0;
 
 	};
 }

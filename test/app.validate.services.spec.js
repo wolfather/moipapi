@@ -10,7 +10,7 @@ describe('Testing the app.validate.services.js', ()=> {
 
 	]))
 
-	it('should have a working validateservice email service', inject(['validateservice', 
+	it('should have a working validateservice CPF service', inject(['validateservice', 
 		(validateservice)=> {
 			expect(validateservice.validate.cpf.test(user.cpf)).toBeTruthy()
 		}
