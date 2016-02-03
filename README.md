@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/wolfather/moipapi.svg?branch=master)](https://travis-ci.org/wolfather/moipapi)
+
 #Como testar a aplicação:
 
 [Acessar o link] (http://rawgit.com/wolfather/moipapi/master/build/html/#/)
