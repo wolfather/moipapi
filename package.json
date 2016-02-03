@@ -6,7 +6,8 @@
   "main": "app.js",
   "scripts": {
     "start": "npm i",
-    "init": ""
+    "init": "",
+    "test": "karma start"
   },
   "repository": {
     "type": "git",
