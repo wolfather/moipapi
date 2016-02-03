@@ -1,6 +1,6 @@
 'use strict'
 
-let user = {
+var user = {
 	fullName: 'israel soares',
 	emailDotCom: 'so.israel@hotmail.com',
 	emailDotComDotBr: 'so.israel@hotmail.com.br',

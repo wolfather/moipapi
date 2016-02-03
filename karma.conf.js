@@ -18,7 +18,10 @@ module.exports = function(config) {
 		'dev/components/angular/angular.min.js',
 		'dev/components/angular-resource/angular-resource.min.js',
 		'dev/components/angular-route/angular-route.min.js',
-		{pattern: 'dev/js/**/*.js', included: true},
+		{
+			pattern: 'dev/js/**/*.js', 
+			included: true
+		},
 		'dev/components/angular-mocks/angular-mocks.js',
 		'test/*.spec.js'
     ],
@@ -61,7 +64,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
 	
 	/*customLaunchers: {
 		chrome: {
@@ -91,22 +94,15 @@ module.exports = function(config) {
     // how many browser should be started simultaneous
     concurrency: Infinity,
 
-
 	coverageReporter: {
 		instrumenterOptions: {
 			istanbul: {
 				noCompact: true
 			}
 		},
-		dir: './reports/coverage',
+		dir: './reports/coverage/',
 		reporters: [
-			{ type: 'html', subdir: 'report-html' },
-			{ type: 'lcov', subdir: 'report-lcov' },
-			{ type: 'cobertura', subdir: '.', file: 'cobertura.txt' },
-			{ type: 'lcovonly', subdir: '.', file: 'report-lcovonly.txt' },
-			{ type: 'teamcity', subdir: '.', file: 'teamcity.txt' },
-			{ type: 'text', subdir: '.', file: 'text.txt' },
-			{ type: 'text-summary', subdir: '.', file: 'text-summary.txt' },
+			{ type: 'html', subdir: 'report-html', file: 'sumary.html' }
 		]
 	}
 

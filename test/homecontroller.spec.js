@@ -1,10 +1,10 @@
 'use strict'
 
 
-describe('testing application', ()=> {
+describe('testing application', function() {
 	beforeEach(angular.mock.module('app'))
 
-	it('should ensure the controller exist', ()=> {
+	it('should ensure the controller exist', function() {
 		expect('homeController').toBeDefined()
 	})
 
