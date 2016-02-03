@@ -35,7 +35,7 @@ describe('Testing the app.transform.value.js service', ()=> {
 
 	it('should have a working transformvalue user.cpf service', inject(['transformvalue', 
 		(transformvalue)=> {
-			expect(transformvalue.cpf(user.cpf)).toBe('123.456.789-01');
+			expect(transformvalue.cpf(user.cpf)).toBe('12345678901');
 		}
 	]))
 })
