@@ -32,4 +32,10 @@ describe('Testing the app.transform.value.js service', function() {
 			expect(transformvalue.phone(user.cellphoneTypeOne).number()).toBe('123456789');
 		}
 	]))
+
+	it('should be working transformvalue.cpf(param) service', 
+		inject(['transformvalue', function(transformvalue) {
+			expect(transformvalue.cpf(user.cpf)).toBe('123.456.789-01');
+		}
+	]))
 })

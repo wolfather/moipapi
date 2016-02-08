@@ -16,3 +16,5 @@
 - Deve ser possível ver um box cinza com as informações;
 - Fim de teste; 
 
+##Como rodar TDD`s
+Executar o comando "karma start";
